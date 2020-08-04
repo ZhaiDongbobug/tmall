@@ -27,10 +27,6 @@ import tmall.util.Page;
 
 public abstract class BaseBackServlet extends HttpServlet{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	public abstract String add(HttpServletRequest request, HttpServletResponse response, Page page) ;
     public abstract String delete(HttpServletRequest request, HttpServletResponse response, Page page) ;

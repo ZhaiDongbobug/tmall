@@ -81,6 +81,34 @@ public class PropertyDAO {
             e.printStackTrace();
         }
     }
+    
+    public Property get(String name, int cid) {
+    	Property bean =null;
+		 
+		String sql = "select * from Property where name = ? and cid = ?";
+		
+        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        	ps.setString(1, name);
+        	ps.setInt(2, cid);
+            
+ 
+            ResultSet rs = ps.executeQuery();
+ 
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                bean = new Property();
+                bean.setName(name);
+                Category category = new CategoryDAO().get(cid);
+                bean.setCategory(category);
+                bean.setId(id);
+            }
+ 
+        } catch (SQLException e) {
+ 
+            e.printStackTrace();
+        }
+        return bean;
+	}
   
     public Property get(int id) {//得到指定id属性
         Property bean = new Property();
@@ -107,7 +135,7 @@ public class PropertyDAO {
         }
         return bean;
     }
-  
+    
     public List<Property> list(int cid) {//列出所有属性
         return list(cid, 0, Short.MAX_VALUE);
     }

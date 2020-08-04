@@ -7,15 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import tmall.bean.Category;
 import tmall.bean.Property;
-import tmall.dao.PropertyDAO;
 import tmall.util.Page;
 
 public class PropertyServlet extends BaseBackServlet{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
@@ -66,7 +61,7 @@ public class PropertyServlet extends BaseBackServlet{
 	@Override
 	public String list(HttpServletRequest request, HttpServletResponse response, Page page) {
 		int cid = Integer.parseInt(request.getParameter("cid"));
-		Category c = new Category();
+		Category c = categoryDAO.get(cid);
 		List<Property> ps = propertyDAO.list(cid, page.getStart(), page.getCount());
 		int total = propertyDAO.getTotal(cid);
 		page.setParam("&cid="+c.getId());
